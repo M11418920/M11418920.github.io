@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>【原來錢還能這樣玩？】帶你走進財務金融的奇幻世界</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Noto Sans TC', 'sans-serif'],
+                        display: ['Outfit', 'Noto Sans TC', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            200: '#bae0fd',
+                            300: '#7cc9fb',
+                            400: '#36aef4',
+                            500: '#0c92e9',
+                            600: '#0174c8',
+                            700: '#025ca1',
+                            800: '#064f85',
+                            900: '#0b426f',
+                            950: '#072a4a',
+                        },
+                        accent: '#ffbd59',
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(30px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-15px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #030712;
+            color: #f3f4f6;
+            overflow-x: hidden;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #7cc9fb 0%, #0c92e9 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .text-glow {
+            text-shadow: 0 0 20px rgba(12, 146, 233, 0.4);
+        }
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 32px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #030712;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1f2937;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #374151;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased selection:bg-brand-500 selection:text-white">
+
+    <!-- Progress Bar -->
+    <div class="fixed top-0 left-0 w-full h-1 z-50">
+        <div id="progress" class="h-full bg-brand-500 w-0 transition-all duration-150"></div>
+    </div>
+
+    <!-- Hero Section -->
+    <header class="relative min-h-[80vh] flex flex-col items-center justify-center px-6 pt-12 pb-20 overflow-hidden">
+        <!-- Background Elements -->
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full -z-10 opacity-30">
+            <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-brand-600 rounded-full blur-[120px]"></div>
+            <div class="absolute bottom-[-10%] right-[-10%] w-[30%] h-[30%] bg-indigo-600 rounded-full blur-[100px]"></div>
+        </div>
+
+        <div class="max-w-6xl w-full mx-auto space-y-12 animate-fade-in-up">
+            <!-- Banner Media -->
+            <div class="relative w-full aspect-[21/9] md:aspect-[2.5/1] overflow-hidden rounded-[40px] group">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10"></div>
+                <div class="image-container h-full transform transition-transform duration-700 group-hover:scale-105">
+                    <img src='https://opal.google/board/blobs/787b8eca-a321-447c-ab6c-d040c8fdc1ad' alt='Financial World Exploration Banner' />
+                </div>
+                <div class="absolute bottom-8 left-8 right-8 z-20">
+                    <div class="flex items-center gap-4 mb-4">
+                        <span class="px-4 py-1.5 bg-brand-500 text-white text-xs font-bold uppercase tracking-widest rounded-full">Financial Insight</span>
+                        <span class="text-gray-300 text-sm font-medium tracking-wide">March 2024 • 8 Min Read</span>
+                    </div>
+                    <h1 class="font-display text-4xl md:text-6xl lg:text-7xl font-extrabold leading-tight text-white tracking-tight">
+                        原來錢還能這樣玩？<br/>
+                        <span class="gradient-text">帶你走進財務金融的奇幻世界</span>
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-4xl mx-auto px-6 pb-32">
+        <article class="space-y-16 text-gray-300 leading-relaxed text-lg">
+            
+            <!-- Introduction -->
+            <section class="relative">
+                <div class="absolute -left-12 top-0 text-7xl font-display text-brand-900/40 select-none">"</div>
+                <p class="text-xl md:text-2xl font-light text-gray-100 leading-relaxed italic">
+                    想像一下，你手裡拿著一百塊，你是會選擇立刻買一杯特調拿鐵，還是把它存進銀行，期待明年能換回兩杯？這看似簡單的選擇，其實就是「財務金融」（Finance）最核心的奧義。
+                </p>
+                <p class="mt-8">
+                    很多人聽到「金融」就想到枯燥的報表或數字，但其實財務金融更像是一場關於<strong>「錢、時間與不確定性」</strong>的三角戀。它在研究的，是如何在這個充滿風險的世界裡，把「現在的錢」變換成「未來的價值」，並讓個人、企業甚至國家活得更好。
+                </p>
+            </section>
+
+            <div class="section-divider"></div>
+
+            <!-- Four Pillars Bento Grid -->
+            <section>
+                <div class="flex items-center gap-4 mb-10">
+                    <div class="w-12 h-1 bg-brand-500 rounded-full"></div>
+                    <h2 class="text-3xl font-bold text-white font-display">🎯 財務金融是什麼？錢的四種分身</h2>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="glass-card p-8 hover:border-brand-500/50 transition-all duration-300 group">
+                        <div class="w-12 h-12 bg-brand-500/10 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                            <span class="text-2xl">🏢</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">公司理財 <span class="text-sm font-normal text-brand-400 block mt-1">Corporate Finance</span></h3>
+                        <p class="text-gray-400 text-sm leading-relaxed">企業的大總管。他們每天在煩惱該投資什麼項目（資本預算）、要發股票還是借錢來籌資（資本結構），以及怎麼確保公司明天還有現金付薪水。</p>
+                    </div>
+
+                    <div class="glass-card p-8 hover:border-brand-500/50 transition-all duration-300 group">
+                        <div class="w-12 h-12 bg-indigo-500/10 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                            <span class="text-2xl">📈</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">投資學 <span class="text-sm font-normal text-indigo-400 block mt-1">Investments</span></h3>
+                        <p class="text-gray-400 text-sm leading-relaxed">華爾街的鍊金術。研究股票、債券這些金融資產該怎麼定價，並在風險與報酬之間跳一場優雅的華爾滋。</p>
+                    </div>
+
+                    <div class="glass-card p-8 hover:border-brand-500/50 transition-all duration-300 group">
+                        <div class="w-12 h-12 bg-emerald-500/10 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                            <span class="text-2xl">🏛️</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">金融機構與市場 <span class="text-sm font-normal text-emerald-400 block mt-1">Financial Institutions</span></h3>
+                        <p class="text-gray-400 text-sm leading-relaxed">錢的「中繼站」。銀行、交易所就像是媒合平台，讓有錢的人與缺錢的人能順利碰面並進行交易。</p>
+                    </div>
+
+                    <div class="glass-card p-8 hover:border-brand-500/50 transition-all duration-300 group">
+                        <div class="w-12 h-12 bg-amber-500/10 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                            <span class="text-2xl">🌍</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">公共財政 <span class="text-sm font-normal text-amber-400 block mt-1">Public Finance</span></h3>
+                        <p class="text-gray-400 text-sm leading-relaxed">國家級的開源節流。政府如何收稅、如何撒錢建設，以及這些財政政策如何左右我們的生活。</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- History Timeline -->
+            <section class="relative">
+                <div class="flex items-center gap-4 mb-12">
+                    <div class="w-12 h-1 bg-brand-500 rounded-full"></div>
+                    <h2 class="text-3xl font-bold text-white font-display">📜 金融時光機：從香料貿易到超級電腦</h2>
+                </div>
+
+                <div class="space-y-12 relative before:absolute before:left-0 md:before:left-1/2 before:top-0 before:h-full before:w-px before:bg-brand-500/20">
+                    <div class="relative pl-8 md:pl-0 md:flex items-center group">
+                        <div class="md:w-1/2 md:pr-12 md:text-right">
+                            <span class="text-brand-400 font-display font-bold tracking-tighter text-2xl">17th Century</span>
+                            <h4 class="text-white text-xl font-bold mb-2">現代證券市場的起點</h4>
+                            <p class="text-sm text-gray-400">荷蘭東印度公司為了籌錢去遠方買香料，發行了世界上第一張股票。這讓全歐洲的口袋成為航海冒險的後盾。</p>
+                        </div>
+                        <div class="absolute left-[-5px] md:left-1/2 md:-ml-1.5 w-3 h-3 rounded-full bg-brand-500 shadow-[0_0_10px_#0c92e9]"></div>
+                    </div>
+
+                    <div class="relative pl-8 md:pl-0 md:flex items-center md:flex-row-reverse group">
+                        <div class="md:w-1/2 md:pl-12">
+                            <span class="text-indigo-400 font-display font-bold tracking-tighter text-2xl">1950s - 1970s</span>
+                            <h4 class="text-white text-xl font-bold mb-2">黃金時代：金融科學化</h4>
+                            <p class="text-sm text-gray-400">馬可維茲提出了「現代投資組合理論 (MPT)」與 CAPM 模型，讓金融從「憑感覺」變成精密的數學體系。</p>
+                        </div>
+                        <div class="absolute left-[-5px] md:left-1/2 md:-ml-1.5 w-3 h-3 rounded-full bg-indigo-500"></div>
+                    </div>
+
+                    <div class="relative pl-8 md:pl-0 md:flex items-center group">
+                        <div class="md:w-1/2 md:pr-12 md:text-right">
+                            <span class="text-rose-400 font-display font-bold tracking-tighter text-2xl">2008</span>
+                            <h4 class="text-white text-xl font-bold mb-2">挫折與反思</h4>
+                            <p class="text-sm text-gray-400">次貸危機像是一盆冷水，提醒我們：再強大的演算法，也抵不過過度槓桿帶來的系統性風險。</p>
+                        </div>
+                        <div class="absolute left-[-5px] md:left-1/2 md:-ml-1.5 w-3 h-3 rounded-full bg-rose-500"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Three Rules -->
+            <section class="glass-card overflow-hidden">
+                <div class="bg-gradient-to-r from-brand-600/20 to-indigo-600/20 p-8 md:p-12">
+                    <h2 class="text-3xl font-bold text-white mb-8 flex items-center gap-3">
+                        <span class="bg-brand-500 text-white rounded-lg p-2 text-xl">💡</span>
+                        金融圈的「三大鐵律」
+                    </h2>
+                    <div class="space-y-8">
+                        <div class="flex gap-6">
+                            <span class="font-display text-4xl font-black text-brand-500/30">01</span>
+                            <div>
+                                <h4 class="text-white font-bold text-xl mb-2">時間是有份量的</h4>
+                                <p class="text-gray-400">今天的 100 塊絕對比明年的 100 塊值錢。這就是「貨幣時間價值」，也是所有理財規劃的基石。</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6">
+                            <span class="font-display text-4xl font-black text-brand-500/30">02</span>
+                            <div>
+                                <h4 class="text-white font-bold text-xl mb-2">天下沒白吃的午餐</h4>
+                                <p class="text-gray-400">高報酬必然伴隨高風險 (Risk-Return Trade-off)。想要心跳加速的獲利，就得做好心碎的準備。</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6">
+                            <span class="font-display text-4xl font-black text-brand-500/30">03</span>
+                            <div>
+                                <h4 class="text-white font-bold text-xl mb-2">市場真的理性嗎？</h4>
+                                <p class="text-gray-400">人類會衝動購物、會集體恐慌。行為財務學告訴我們：了解人類的「不理性」，反而成了現代投資的新顯學。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Controversies -->
+            <section>
+                <div class="flex items-center gap-4 mb-10">
+                    <div class="w-12 h-1 bg-brand-500 rounded-full"></div>
+                    <h2 class="text-3xl font-bold text-white font-display">🔥 讓網友吵翻天的金融爭議</h2>
+                </div>
+                <div class="space-y-6">
+                    <div class="group cursor-default">
+                        <div class="border-l-4 border-brand-500 pl-6 group-hover:bg-brand-500/5 transition-colors p-4 rounded-r-2xl">
+                            <h4 class="text-white font-bold text-lg mb-2">金融業是吸血鬼嗎？</h4>
+                            <p class="text-gray-400 text-sm">有人批評「金融化」過度，讓社會資源都跑去玩投機金錢遊戲，而不是投資在研發與生產上。</p>
+                        </div>
+                    </div>
+                    <div class="group cursor-default">
+                        <div class="border-l-4 border-brand-500 pl-6 group-hover:bg-brand-500/5 transition-colors p-4 rounded-r-2xl">
+                            <h4 class="text-white font-bold text-lg mb-2">AI 投資會把股市搞垮嗎？</h4>
+                            <p class="text-gray-400 text-sm">高頻交易與演算法自動下單，速度快到人類跟不上，這會不會引發瞬間的「閃崩」？</p>
+                        </div>
+                    </div>
+                    <div class="group cursor-default">
+                        <div class="border-l-4 border-brand-500 pl-6 group-hover:bg-brand-500/5 transition-colors p-4 rounded-r-2xl">
+                            <h4 class="text-white font-bold text-lg mb-2">大到不能倒的黑暗面</h4>
+                            <p class="text-gray-400 text-sm">銀行賺錢時發紅利，賠錢時卻要政府（納稅人）救？這種「道德風險」一直是金融體系中最難解的矛盾。</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Future of Finance -->
+            <section class="space-y-10">
+                <div class="text-center space-y-4">
+                    <h2 class="text-4xl font-display font-black text-white">🚀 錢的未來：變革的前夜</h2>
+                    <p class="text-brand-400 uppercase tracking-widest text-sm font-bold">The Next Evolution</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="p-6 bg-gradient-to-br from-gray-900 to-gray-800 rounded-3xl border border-gray-700 hover:border-brand-500 transition-all">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="p-3 bg-brand-500/20 rounded-2xl text-brand-500">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                </svg>
+                            </div>
+                            <h4 class="text-white font-bold">FinTech 變魔術</h4>
+                        </div>
+                        <p class="text-sm text-gray-400 leading-relaxed">機器人理財讓理財不再是富人專利；DeFi 則挑戰傳統銀行，嘗試建立無中介的金融世界。</p>
+                    </div>
+
+                    <div class="p-6 bg-gradient-to-br from-gray-900 to-gray-800 rounded-3xl border border-gray-700 hover:border-emerald-500 transition-all">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="p-3 bg-emerald-500/20 rounded-2xl text-emerald-500">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.065M15 20.288V18a2 2 0 012-2h1a2 2 0 002-2v-1.392" />
+                                </svg>
+                            </div>
+                            <h4 class="text-white font-bold">ESG 綠色金融</h4>
+                        </div>
+                        <p class="text-sm text-gray-400 leading-relaxed">投資不再只看 EPS，還要看你對地球好不好。ESG 讓「愛地球」與「賺錢」不再是平行線。</p>
+                    </div>
+
+                    <div class="p-6 bg-gradient-to-br from-gray-900 to-gray-800 rounded-3xl border border-gray-700 hover:border-amber-500 transition-all">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="p-3 bg-amber-500/20 rounded-2xl text-amber-500">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <h4 class="text-white font-bold">數位貨幣崛起</h4>
+                        </div>
+                        <p class="text-sm text-gray-400 leading-relaxed">從比特幣到央行數位貨幣 (CBDC)，未來的我們可能真的不再需要實體錢包。</p>
+                    </div>
+
+                    <div class="p-6 bg-gradient-to-br from-gray-900 to-gray-800 rounded-3xl border border-gray-700 hover:border-purple-500 transition-all">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="p-3 bg-purple-500/20 rounded-2xl text-purple-500">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                                </svg>
+                            </div>
+                            <h4 class="text-white font-bold">普惠金融</h4>
+                        </div>
+                        <p class="text-sm text-gray-400 leading-relaxed">讓發展中國家沒銀行帳號的人，也能用一隻手機借錢創業，這是金融改善貧富差距的最高境界。</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Conclusion Card -->
+            <section class="relative mt-24 py-16 px-8 rounded-[32px] overflow-hidden bg-brand-950/50 border border-brand-900/50">
+                <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-brand-600/10 via-transparent to-transparent"></div>
+                <div class="relative z-10 text-center max-w-2xl mx-auto space-y-6">
+                    <h3 class="text-2xl font-bold text-white">💡 結語</h3>
+                    <p class="text-lg text-gray-300 leading-relaxed">
+                        金融的世界雖然充斥著複雜的公式與術語，但其核心本質始終是關於<strong>「人」的希望與選擇</strong>。它不是要把你搞暈，而是要給你一把鑰匙，讓你在追求未來的財務自由路上走得更順、更穩！
+                    </p>
+                    <div class="pt-6">
+                        <button class="px-8 py-3 bg-brand-500 hover:bg-brand-400 text-white font-bold rounded-full transition-all shadow-lg shadow-brand-500/20 active:scale-95">
+                            探索更多金融知識
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+        </article>
+    </main>
+
+    <script>
+        // Scroll Progress Bar
+        window.onscroll = function() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (winScroll / height) * 100;
+            document.getElementById("progress").style.width = scrolled + "%";
+        };
+
+        // Subtle animation for cards on hover
+        const cards = document.querySelectorAll('.glass-card');
+        cards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+    </script>
+</body>
+</html>
+
