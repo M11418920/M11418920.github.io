@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="slides-format" content="viewport">
+  <title>異國內容策展創業提案.slides</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;700;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style type="text/tailwindcss">
+    @theme {
+      --color-bg: #faf8f5;
+      --color-bg-deep: #f1ece4;
+      --color-surface: #ffffff;
+      --color-text: #1f2937;
+      --color-text-secondary: #475569;
+      --color-text-muted: #7c8a9a;
+      --color-accent-1: #c2410c;
+      --color-accent-2: #2563eb;
+      --color-accent-3: #7c3aed;
+      --color-glass-bg: rgba(255,255,255,0.82);
+      --color-glass-border: rgba(15,23,42,0.08);
+      --color-vignette: rgba(0,0,0,0.06);
+      --font-display: 'Noto Serif TC', serif;
+      --font-body: 'Inter', 'Noto Sans TC', sans-serif;
+    }
+  </style>
+  <style>
+    :root { --color-bg: #faf8f5; --color-text: #1f2937; --glow-color-rgb: 194,65,12; --font-body:'Inter','Noto Sans TC',sans-serif; }
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { background: var(--color-bg); margin: 0; }
+    body { font-family: var(--font-body); color: var(--color-text); overflow: hidden; height: 100vh; width: 100vw; }
+    .deck { width: 100vw; height: 100vh; position: relative; }
+    .slide { position: absolute; inset: 0; background: var(--color-bg); display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; transform: scale(0.95); transition: opacity 0.7s ease, transform 0.7s ease; pointer-events: none; overflow: hidden; }
+    .slide.active { opacity: 1; transform: scale(1); pointer-events: all; }
+    .slide > .content { position: relative; z-index: 2; width: 100%; max-width: 1180px; padding: clamp(1.5rem, 4vw, 4rem); }
+    .nav-controls { position: fixed; bottom: 22px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 16px; z-index: 100; background: rgba(255,255,255,0.75); backdrop-filter: blur(12px); padding: 10px 24px; border-radius: 999px; border: 1px solid rgba(15,23,42,0.08); box-shadow: 0 12px 30px rgba(15,23,42,0.08); }
+    .nav-btn { width: 40px; height: 40px; border: none; background: rgba(255,255,255,0.75); color: #c2410c; border-radius: 50%; font-size: 1.2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+    .slide-dots { display:flex; gap:8px; }
+    .slide-dots .dot { width:10px; height:10px; border-radius:50%; background: rgba(15,23,42,0.12); cursor:pointer; transition: all .3s; }
+    .slide-dots .dot.active { background:#c2410c; transform:scale(1.25); }
+    .slide-counter { font-size: .82rem; color:#64748b; min-width:48px; text-align:center; }
+    .reveal { opacity: 0; transform: translateY(20px); }
+    @keyframes float-slow { 0% { transform: translate(0,0) scale(1);} 25% { transform: translate(60px,-50px) scale(1.08);} 50% { transform: translate(-35px,35px) scale(.94);} 75% { transform: translate(45px,20px) scale(1.06);} 100% { transform: translate(0,0) scale(1);} }
+    @keyframes float-drift { 0% { transform: translate(0,0) scale(1) rotate(0deg);} 33% { transform: translate(-45px,-55px) scale(1.12) rotate(3deg);} 66% { transform: translate(35px,25px) scale(.9) rotate(-2deg);} 100% { transform: translate(0,0) scale(1) rotate(0deg);} }
+    @keyframes float { 0%,100% { transform: translateY(0);} 50% { transform: translateY(-15px);} }
+    .gradient-mesh { position:absolute; inset:0; z-index:0; overflow:hidden; pointer-events:none; }
+    .blob { position:absolute; border-radius:50%; filter: blur(80px); animation: float-slow 11s ease-in-out infinite; }
+    .blob:nth-child(2) { animation: float-drift 15s ease-in-out infinite; }
+    .blob:nth-child(3) { animation: float-slow 18s ease-in-out infinite reverse; }
+    .slide::before { content:''; position:absolute; inset:0; z-index:1; pointer-events:none; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"); background-repeat:repeat; background-size:256px 256px; opacity:.025; mix-blend-mode:multiply; }
+    .slide::after { content:''; position:absolute; inset:0; z-index:1; pointer-events:none; background: radial-gradient(ellipse at center, transparent 50%, var(--color-vignette) 100%); }
+    .bar-chart { display:flex; align-items:flex-end; gap:.7rem; height:180px; }
+    .bar-col { display:flex; flex-direction:column; align-items:center; gap:.35rem; flex:1; }
+    .bar { border-radius:10px 10px 0 0; width:100%; }
+    .bar-fill { height:100%; border-radius:999px; }
+    .deco-shape { position:absolute; border-radius:50%; opacity:.08; filter: blur(12px); z-index:1; }
+    .slide-1 .hero-box { box-shadow:0 25px 60px rgba(37,99,235,.12); }
+    .slide-4 .bmc-grid, .slide-8 .roadmap-grid { display:grid; gap:14px; }
+    .slide-4 .bmc-grid { grid-template-columns:repeat(3,1fr); }
+    .slide-8 .roadmap-grid { grid-template-columns:repeat(4,1fr); }
+    .slide-4 .bmc-card, .slide-8 .phase-card { min-height:155px; }
+    .mouse-spotlight { position:fixed; inset:0; z-index:99; pointer-events:none; }
+    @media (max-width: 900px) {
+      .slide-4 .bmc-grid { grid-template-columns:repeat(2,1fr); }
+      .slide-8 .roadmap-grid { grid-template-columns:repeat(2,1fr); }
+    }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .2s !important; } }
+  </style>
+</head>
+<body>
+<div class="mouse-spotlight"></div>
+<div class="deck">
+  <section class="slide slide-1 active" data-slide="1">
+    <div class="gradient-mesh">
+      <div class="blob" style="width:520px;height:520px;top:-140px;right:-120px;background:var(--color-accent-1);opacity:.14"></div>
+      <div class="blob" style="width:360px;height:360px;bottom:-80px;left:-80px;background:var(--color-accent-2);opacity:.12"></div>
+      <div class="blob" style="width:220px;height:220px;top:45%;left:18%;background:var(--color-accent-3);opacity:.08"></div>
+    </div>
+    <canvas class="particle-canvas" style="position:absolute;inset:0;z-index:1"></canvas>
+    <div class="content text-center">
+      <div class="hero-box reveal mx-auto mb-8 flex h-32 w-32 items-center justify-center rounded-[2rem] border border-glass-border bg-glass-bg text-[4.5rem] backdrop-blur-xl">🌍</div>
+      <h1 class="reveal font-display text-[clamp(2.6rem,6vw,4.8rem)] font-black tracking-tight text-text">異國內容策展創業提案</h1>
+      <p class="reveal mt-4 text-[clamp(1rem,1.7vw,1.35rem)] uppercase tracking-[0.28em] text-text-muted">MVP 規劃 × 商業模式畫布 × 變現路徑</p>
+      <div class="reveal mt-8 inline-flex rounded-full border border-glass-border bg-white/70 px-6 py-3 text-sm text-text-secondary shadow-sm">以社群驗證需求，不以抄襲作為核心商業模式</div>
+    </div>
+  </section>
+
+  <section class="slide slide-2" data-slide="2">
+    <div class="gradient-mesh">
+      <div class="blob" style="width:340px;height:340px;top:-80px;right:-70px;background:var(--color-accent-2);opacity:.08"></div>
+      <div class="blob" style="width:260px;height:260px;bottom:-50px;left:-40px;background:var(--color-accent-1);opacity:.07"></div>
+    </div>
+    <div class="deco-shape" data-speed="0.04" style="width:180px;height:180px;right:8%;top:18%;background:var(--color-accent-3)"></div>
+    <div class="content">
+      <p class="reveal mb-3 uppercase tracking-[0.22em] text-text-muted">前情提要</p>
+      <h2 class="reveal font-display text-[clamp(1.9rem,3.8vw,2.8rem)] font-bold">先確認客戶，再確認產品：這是整個創業發想的起點</h2>
+      <div class="mt-6 grid grid-cols-2 gap-5">
+        <div class="reveal rounded-3xl border border-glass-border bg-white p-6 shadow-lg">
+          <h3 class="mb-3 text-xl font-bold text-accent-1">創業起心動念</h3>
+          <ul class="space-y-2 text-[1.02rem] leading-7 text-text-secondary">
+            <li>「先確認客戶，再確認產品」是陶老師上課強調的原則。</li>
+            <li>如果先吸引到一群人，提供情緒價值，同時賺到第一筆啟動資金，模式就很迷人。</li>
+            <li>重點不是先做產品，而是先證明有人願意持續看與互動。</li>
+          </ul>
+        </div>
+        <div class="reveal rounded-3xl border border-glass-border bg-white p-6 shadow-lg">
+          <h3 class="mb-3 text-xl font-bold text-accent-2">靈感來源</h3>
+          <ul class="space-y-2 text-[1.02rem] leading-7 text-text-secondary">
+            <li>前陣子知名內容農場曾利用複製微信內容與 Google 生態不互通的特性賺取點閱廣告收入。</li>
+            <li>這讓我想到：資訊落差本身就可能形成早期流量與資金來源。</li>
+            <li>但後來判斷，若直接複製搬運，法務與平台風險都太高。</li>
+          </ul>
+        </div>
+        <div class="reveal rounded-3xl border border-glass-border bg-glass-bg p-6 shadow-lg backdrop-blur-xl">
+          <h3 class="mb-3 text-xl font-bold text-accent-3">內容方向發想</h3>
+          <ul class="space-y-2 text-[1.02rem] leading-7 text-text-secondary">
+            <li>把目標轉向俄羅斯、伊朗等華人陌生且常有誤解的地區。</li>
+            <li>題材可涵蓋新聞、風土人情、文化、飲食、風俗與地理。</li>
+            <li>先挑高含金量或有趣文章，再用推薦系統把讀者導向相近主題。</li>
+          </ul>
+        </div>
+        <div class="reveal rounded-3xl border border-glass-border bg-glass-bg p-6 shadow-lg backdrop-blur-xl">
+          <h3 class="mb-3 text-xl font-bold text-accent-1">現成資源</h3>
+          <ul class="space-y-2 text-[1.02rem] leading-7 text-text-secondary">
+            <li>你手上已有一個公開 Facebook 美食社團，規模約 11 萬人。</li>
+            <li>本人是版主，能直接拿來做題材測試、導流與需求驗證。</li>
+            <li>因此最適合的第一步，是從異國美食文化開始，而非一開始就做大而全的平台。</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide slide-3" data-slide="3">
+    <div class="gradient-mesh">
+      <div class="blob" style="width:360px;height:360px;top:-100px;left:-70px;background:var(--color-accent-1);opacity:.08"></div>
+      <div class="blob" style="width:260px;height:260px;bottom:-50px;right:-50px;background:var(--color-accent-3);opacity:.07"></div>
+    </div>
+    <div class="content">
+      <p class="reveal mb-3 uppercase tracking-[0.22em] text-text-muted">MVP 設計</p>
+      <h2 class="reveal font-display text-[clamp(2rem,4vw,3rem)] font-bold">先驗證三件事，而不是先做大型內容站</h2>
+      <div class="mt-8 grid grid-cols-3 gap-6">
+        <div class="reveal rounded-3xl border border-glass-border bg-white p-7 shadow-md hover:-translate-y-1 hover:shadow-xl transition">
+          <div class="mb-4 text-4xl">👀</div>
+          <h3 class="mb-3 text-xl font-bold">有人會看</h3>
+          <p class="text-text-secondary">測貼文點擊率、內容停留、留言與分享，確認陌生異國題材是否真的吸引目標受眾。</p>
+        </div>
+        <div class="reveal rounded-3xl border border-glass-border bg-white p-7 shadow-md hover:-translate-y-1 hover:shadow-xl transition">
+          <div class="mb-4 text-4xl">📝</div>
+          <h3 class="mb-3 text-xl font-bold">有人會留下資料</h3>
+          <p class="text-text-secondary">用問卷、電子報、Line 社群測試主題黏著度，觀察讀者是否願意持續接收內容。</p>
+        </div>
+        <div class="reveal rounded-3xl border border-glass-border bg-white p-7 shadow-md hover:-translate-y-1 hover:shadow-xl transition">
+          <div class="mb-4 text-4xl">💸</div>
+          <h3 class="mb-3 text-xl font-bold">有人會採取商業行動</h3>
+          <p class="text-text-secondary">先看導購點擊、私訊詢問、合作需求，而不是一開始就押注 AdSense 廣告。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide slide-4" data-slide="4">
+    <div class="gradient-mesh">
+      <div class="blob" style="width:300px;height:300px;top:-80px;right:-60px;background:var(--color-accent-2);opacity:.08"></div>
+      <div class="blob" style="width:240px;height:240px;bottom:-40px;left:-40px;background:var(--color-accent-1);opacity:.07"></div>
+    </div>
+    <div class="content">
+      <p class="reveal mb-3 uppercase tracking-[0.22em] text-text-muted">商業模式畫布</p>
+      <h2 class="reveal font-display text-[clamp(2rem,4vw,3rem)] font-bold">第一版 Business Model Canvas</h2>
+      <div class="bmc-grid mt-6">
+        <div class="bmc-card reveal rounded-2xl border border-glass-border bg-white p-5 shadow-sm"><h3 class="mb-2 font-bold text-accent-1">客戶族群</h3><p class="text-sm leading-6 text-text-secondary">華語讀者；美食、旅遊、文化愛好者；尋找異國主題流量的餐飲、旅遊、進口與跨境合作方。</p></div>
+        <div class="bmc-card reveal rounded-2xl border border-glass-border bg-white p-5 shadow-sm"><h3 class="mb-2 font-bold text-accent-1">價值主張</h3><p class="text-sm leading-6 text-text-secondary">把陌生國家的內容整理成可讀、可分享、可行動的華文策展，不是單純翻譯搬運。</p></div>
+        <div class="bmc-card reveal rounded-2xl border border-glass-border bg-white p-5 shadow-sm"><h3 class="mb-2 font-bold text-accent-1">通路</h3><p class="text-sm leading-6 text-text-secondary">Facebook 社團導流、獨立內容頁、電子報、Line 社群、合作方互推。</p></div>
+        <div class="bmc-card reveal rounded-2xl border border-glass-border bg-white p-5 shadow-sm"><h3 class="mb-2 font-bold text-accent-2">顧客關係</h3><p class="text-sm leading-6 text-text-secondary">固定專欄、問卷互動、留言回饋、選題共創，讓讀者先信任你的策展能力。</p></div>
+        <div class="bmc-card reveal rounded-2xl border border-glass-border bg-white p-5 shadow-sm"><h3 class="mb-2 font-bold text-accent-2">收入來源</h3><p class="text-sm leading-6 text-text-secondary">聯盟導購、商業合作、會員或付費內容、品牌代操與顧問案。</p></div>
+        <div class="bmc-card reveal rounded-2xl border border-glass-border bg-white p-5 shadow-sm"><h3 class="mb-2 font-bold text-accent-2">關鍵資源</h3><p class="text-sm leading-6 text-text-secondary">11 萬人社群、內容 SOP、資料來源庫、簡單網站與數據追蹤。</p></div>
+        <div class="bmc-card reveal rounded-2xl border border-glass-border bg-white p-5 shadow-sm"><h3 class="mb-2 font-bold text-accent-3">關鍵活動</h3><p class="text-sm leading-6 text-text-secondary">來源篩選、摘要整理、在地化解讀、貼文測試、問卷收集、合作開發。</p></div>
+        <div class="bmc-card reveal rounded-2xl border border-glass-border bg-white p-5 shadow-sm"><h3 class="mb-2 font-bold text-accent-3">關鍵夥伴</h3><p class="text-sm leading-6 text-text-secondary">旅遊業者、異國餐廳、進口商、語言平台、可授權內容來源方。</p></div>
+        <div class="bmc-card reveal rounded-2xl border border-glass-border bg-white p-5 shadow-sm"><h3 class="mb-2 font-bold text-accent-3">成本結構</h3><p class="text-sm leading-6 text-text-secondary">網站工具、內容製作、人力時間、授權或圖片成本、合作與行銷支出。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide slide-5" data-slide="5">
+    <div class="gradient-mesh">
+      <div class="blob" style="width:320px;height:320px;top:-90px;right:-60px;background:var(--color-accent-1);opacity:.08"></div>
+      <div class="blob" style="width:240px;height:240px;bottom:-40px;left:-40px;background:var(--color-accent-2);opacity:.07"></div>
+    </div>
+    <canvas class="particle-canvas-ambient" style="position:absolute;inset:0;z-index:1"></canvas>
+    <div class="content">
+      <p class="reveal mb-3 uppercase tracking-[0.22em] text-text-muted">產品雛形</p>
+      <h2 class="reveal font-display text-[clamp(2rem,4vw,3rem)] font-bold">MVP 不是平台，而是四個可快速測試的模組</h2>
+      <div class="mt-8 grid grid-cols-2 gap-6">
+        <div class="reveal rounded-3xl border-l-4 border-accent-1 bg-white p-7 shadow-md hover:-translate-y-1 hover:shadow-xl transition"><h3 class="mb-3 text-xl font-bold">內容模組</h3><p class="text-text-secondary">每篇用固定結構：原始主題、重點摘要、台灣讀者看點、延伸推薦。每週 3–5 篇即可。</p></div>
+        <div class="reveal rounded-3xl border-l-4 border-accent-2 bg-white p-7 shadow-md hover:-translate-y-1 hover:shadow-xl transition"><h3 class="mb-3 text-xl font-bold">流量模組</h3><p class="text-text-secondary">先用 Facebook 社團貼文測試標題與主題，再把高互動題材導向單頁內容站或表單。</p></div>
+        <div class="reveal rounded-3xl border-l-4 border-accent-3 bg-white p-7 shadow-md hover:-translate-y-1 hover:shadow-xl transition"><h3 class="mb-3 text-xl font-bold">轉換模組</h3><p class="text-text-secondary">頁面放電子報、Line 社群與 Google Form，先收集需求與名單，再做第二層內容。</p></div>
+        <div class="reveal rounded-3xl border-l-4 border-accent-1 bg-white p-7 shadow-md hover:-translate-y-1 hover:shadow-xl transition"><h3 class="mb-3 text-xl font-bold">變現模組</h3><p class="text-text-secondary">先測導購、合作詢問、專題贊助，不優先測依賴政策風險較高的廣告收益。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide slide-6" data-slide="6">
+    <div class="gradient-mesh">
+      <div class="blob" style="width:320px;height:320px;top:-90px;left:-50px;background:var(--color-accent-3);opacity:.07"></div>
+      <div class="blob" style="width:280px;height:280px;bottom:-60px;right:-50px;background:var(--color-accent-2);opacity:.08"></div>
+    </div>
+    <div class="content">
+      <p class="reveal mb-3 uppercase tracking-[0.22em] text-text-muted">最適切入點</p>
+      <h2 class="reveal font-display text-[clamp(2rem,4vw,3rem)] font-bold">先聚焦「異國美食文化」：最接近你的社群資產</h2>
+      <div class="mt-8 grid grid-cols-[1.1fr_0.9fr] gap-8 items-center">
+        <div>
+          <div class="reveal rounded-3xl border border-glass-border bg-white p-8 shadow-lg">
+            <ul class="space-y-4 text-lg text-text-secondary">
+              <li>以伊朗、俄羅斯、中亞飲食文化切入，降低題材陌生感。</li>
+              <li>比起一次做「所有異國內容」，美食主題更容易在社團中測試互動與轉換。</li>
+              <li>後續可自然延伸到食材導購、餐廳合作、旅遊靈感與文化專題。</li>
+            </ul>
+          </div>
+        </div>
+        <div class="reveal rounded-[2rem] border border-glass-border bg-glass-bg p-10 text-center shadow-lg backdrop-blur-xl">
+          <div class="text-[5rem]">🍲</div>
+          <h3 class="mt-4 text-2xl font-bold">第一條內容線</h3>
+          <p class="mt-3 text-text-secondary">異國美食故事 → 互動驗證 → 問卷收集 → 導購 / 合作</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide slide-7" data-slide="7">
+    <div class="gradient-mesh">
+      <div class="blob" style="width:310px;height:310px;top:-80px;right:-50px;background:var(--color-accent-1);opacity:.08"></div>
+      <div class="blob" style="width:240px;height:240px;bottom:-40px;left:-40px;background:var(--color-accent-3);opacity:.07"></div>
+    </div>
+    <div class="content">
+      <p class="reveal mb-3 uppercase tracking-[0.22em] text-text-muted">指標設計</p>
+      <h2 class="reveal font-display text-[clamp(2rem,4vw,3rem)] font-bold">第一階段只看 5 個關鍵 KPI</h2>
+      <div class="mt-8 grid grid-cols-2 gap-8 items-end">
+        <div class="reveal rounded-3xl border border-glass-border bg-white p-8 shadow-lg">
+          <div class="bar-chart bar-initless">
+            <div class="bar-col"><div class="bar bg-orange-600" data-height="60" style="background:linear-gradient(180deg,#ea580c,#c2410c)"></div><span class="text-sm text-text-muted">CTR</span></div>
+            <div class="bar-col"><div class="bar bg-blue-600" data-height="72" style="background:linear-gradient(180deg,#3b82f6,#2563eb)"></div><span class="text-sm text-text-muted">停留</span></div>
+            <div class="bar-col"><div class="bar bg-violet-600" data-height="55" style="background:linear-gradient(180deg,#8b5cf6,#7c3aed)"></div><span class="text-sm text-text-muted">問卷</span></div>
+            <div class="bar-col"><div class="bar bg-orange-600" data-height="48" style="background:linear-gradient(180deg,#fb923c,#ea580c)"></div><span class="text-sm text-text-muted">名單</span></div>
+            <div class="bar-col"><div class="bar bg-blue-600" data-height="40" style="background:linear-gradient(180deg,#60a5fa,#2563eb)"></div><span class="text-sm text-text-muted">商機</span></div>
+          </div>
+        </div>
+        <div class="space-y-4">
+          <div class="reveal rounded-2xl border border-glass-border bg-white p-5 shadow-sm"><strong>貼文點擊率：</strong><span class="text-text-secondary">3% 以上表示題材有吸引力。</span></div>
+          <div class="reveal rounded-2xl border border-glass-border bg-white p-5 shadow-sm"><strong>頁面停留：</strong><span class="text-text-secondary">60–90 秒以上代表內容真的被閱讀。</span></div>
+          <div class="reveal rounded-2xl border border-glass-border bg-white p-5 shadow-sm"><strong>問卷填答率：</strong><span class="text-text-secondary">3%–5% 已具商業價值。</span></div>
+          <div class="reveal rounded-2xl border border-glass-border bg-white p-5 shadow-sm"><strong>名單轉換率：</strong><span class="text-text-secondary">2%–5% 可接受，高於 5% 表示題材很準。</span></div>
+          <div class="reveal rounded-2xl border border-glass-border bg-white p-5 shadow-sm"><strong>商業行動：</strong><span class="text-text-secondary">私訊、合作詢問、商品需求是最重要訊號。</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide slide-8" data-slide="8">
+    <div class="gradient-mesh">
+      <div class="blob" style="width:320px;height:320px;top:-80px;right:-50px;background:var(--color-accent-2);opacity:.08"></div>
+      <div class="blob" style="width:240px;height:240px;bottom:-40px;left:-40px;background:var(--color-accent-1);opacity:.07"></div>
+    </div>
+    <canvas class="particle-canvas" style="position:absolute;inset:0;z-index:1"></canvas>
+    <div class="content">
+      <p class="reveal mb-3 uppercase tracking-[0.22em] text-text-muted">執行節奏</p>
+      <h2 class="reveal font-display text-[clamp(2rem,4vw,3rem)] font-bold">8 週實作節奏：先小跑，再放大</h2>
+      <div class="roadmap-grid mt-8">
+        <div class="phase-card reveal rounded-3xl border border-glass-border bg-white p-6 shadow-md hover:-translate-y-1 hover:shadow-xl transition"><div class="mb-2 text-sm uppercase tracking-[0.18em] text-text-muted">Week 1-2</div><h3 class="mb-3 text-xl font-bold">定義題材</h3><p class="text-text-secondary">選一個垂直主題，建立來源與摘要 SOP，定義 KPI。</p></div>
+        <div class="phase-card reveal rounded-3xl border border-glass-border bg-white p-6 shadow-md hover:-translate-y-1 hover:shadow-xl transition"><div class="mb-2 text-sm uppercase tracking-[0.18em] text-text-muted">Week 3-4</div><h3 class="mb-3 text-xl font-bold">發布首批內容</h3><p class="text-text-secondary">上線 10 篇內容，測試標題、貼文與 CTA 效果。</p></div>
+        <div class="phase-card reveal rounded-3xl border border-glass-border bg-white p-6 shadow-md hover:-translate-y-1 hover:shadow-xl transition"><div class="mb-2 text-sm uppercase tracking-[0.18em] text-text-muted">Week 5-6</div><h3 class="mb-3 text-xl font-bold">開始輕變現</h3><p class="text-text-secondary">將高互動題材做成專題頁，測食材導購、合作表單或旅遊靈感產品。</p></div>
+        <div class="phase-card reveal rounded-3xl border border-glass-border bg-white p-6 shadow-md hover:-translate-y-1 hover:shadow-xl transition"><div class="mb-2 text-sm uppercase tracking-[0.18em] text-text-muted">Week 7-8</div><h3 class="mb-3 text-xl font-bold">聚焦與擴張</h3><p class="text-text-secondary">只保留 2 個最強主題，決定下一步做電子報、網站或付費社群。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide slide-9" data-slide="9">
+    <div class="gradient-mesh">
+      <div class="blob" style="width:320px;height:320px;top:-100px;left:-50px;background:var(--color-accent-1);opacity:.08"></div>
+      <div class="blob" style="width:260px;height:260px;bottom:-50px;right:-50px;background:var(--color-accent-3);opacity:.08"></div>
+    </div>
+    <div class="content">
+      <p class="reveal mb-3 uppercase tracking-[0.22em] text-text-muted">法務邊界</p>
+      <h2 class="reveal font-display text-[clamp(2rem,4vw,3rem)] font-bold">風險不是只有「複製貼上」，翻譯與改寫也可能涉及侵權</h2>
+      <div class="mt-8 grid grid-cols-2 gap-6">
+        <div class="reveal rounded-3xl border border-red-200 bg-red-50 p-8 shadow-sm">
+          <h3 class="mb-4 text-2xl font-bold text-red-700">高風險做法</h3>
+          <ul class="space-y-3 text-lg text-text-secondary">
+            <li>直接爬文後整篇翻譯、改寫、洗稿再發佈。</li>
+            <li>以「有標來源」誤認為一定合法。</li>
+            <li>把 Google 廣告變現建立在 replicated content 上。</li>
+          </ul>
+        </div>
+        <div class="reveal rounded-3xl border border-emerald-200 bg-emerald-50 p-8 shadow-sm">
+          <h3 class="mb-4 text-2xl font-bold text-emerald-700">較安全做法</h3>
+          <ul class="space-y-3 text-lg text-text-secondary">
+            <li>先授權，再利用；無授權時只做必要摘錄與評論。</li>
+            <li>增加自己的整理、比較、在地化解讀與觀點。</li>
+            <li>把商業模式建立在策展能力與社群信任，而非搬運本身。</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide slide-10" data-slide="10">
+    <div class="gradient-mesh">
+      <div class="blob" style="width:420px;height:420px;top:-120px;right:-120px;background:var(--color-accent-1);opacity:.13"></div>
+      <div class="blob" style="width:280px;height:280px;bottom:-80px;left:-60px;background:var(--color-accent-2);opacity:.1"></div>
+      <div class="blob" style="width:200px;height:200px;top:42%;left:20%;background:var(--color-accent-3);opacity:.08"></div>
+    </div>
+    <canvas class="particle-canvas" style="position:absolute;inset:0;z-index:1"></canvas>
+    <div class="content text-center">
+      <div class="reveal mx-auto mb-6 flex h-28 w-28 items-center justify-center rounded-[2rem] border border-glass-border bg-glass-bg text-[4rem] backdrop-blur-xl">🚀</div>
+      <h2 class="reveal font-display text-[clamp(2.4rem,5vw,4.2rem)] font-black tracking-tight text-text">下一步建議</h2>
+      <p class="reveal mx-auto mt-5 max-w-4xl text-[clamp(1.1rem,2vw,1.5rem)] leading-relaxed text-text-secondary">先做「異國美食文化」單點 MVP，用社團驗證主題、用問卷收集需求、用導購與合作測商業價值；確認需求後，再擴張到旅遊、文化與跨境商機。</p>
+      <div class="reveal mt-8 inline-flex rounded-full border border-glass-border bg-white/80 px-7 py-3 text-base font-medium text-text-secondary shadow-sm">核心不是內容農場，而是內容策展 × 在地解讀 × 社群轉化</div>
+    </div>
+  </section>
+</div>
+<div class="nav-controls">
+  <button class="nav-btn" aria-label="上一頁" onclick="changeSlide(-1)">&#8249;</button>
+  <div class="slide-dots" id="dots"></div>
+  <button class="nav-btn" aria-label="下一頁" onclick="changeSlide(1)">&#8250;</button>
+  <span class="slide-counter" id="counter">1 / 10</span>
+</div>
+<script>
+  let current = 1;
+  const total = document.querySelectorAll('.slide').length;
+  const dotsContainer = document.getElementById('dots');
+  const counter = document.getElementById('counter');
+  for (let i = 1; i <= total; i++) { const dot = document.createElement('div'); dot.className = 'dot' + (i === 1 ? ' active' : ''); dot.onclick = () => goToSlide(i); dotsContainer.appendChild(dot); }
+  function goToSlide(n) {
+    const prev = document.querySelector('.slide.active');
+    const next = document.querySelector(`.slide[data-slide="${n}"]`);
+    if (prev) prev.classList.remove('active');
+    if (next) { next.classList.add('active'); animateSlide(next); }
+    current = n; updateNav();
+  }
+  function changeSlide(dir) { let next = current + dir; if (next < 1) next = total; if (next > total) next = 1; goToSlide(next); }
+  function updateNav() { document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i + 1 === current)); counter.textContent = current + ' / ' + total; }
+  document.addEventListener('keydown', (e) => { if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); changeSlide(1); } if (e.key === 'ArrowLeft') { e.preventDefault(); changeSlide(-1); } });
+  let touchStartX = 0;
+  document.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; });
+  document.addEventListener('touchend', (e) => { const diff = touchStartX - e.changedTouches[0].clientX; if (Math.abs(diff) > 50) changeSlide(diff > 0 ? 1 : -1); });
+  function animateSlide(slide) {
+    slide.querySelectorAll('.reveal').forEach((el, i) => {
+      el.style.transition = 'none'; el.style.opacity = '0'; el.style.transform = 'translateY(20px)'; el.offsetHeight;
+      const delay = i * 0.08;
+      el.style.transition = `opacity 0.35s ease ${delay}s, transform 0.35s ease ${delay}s`;
+      el.style.opacity = '1'; el.style.transform = 'translateY(0px)';
+    });
+    animateSlideEffects(slide);
+  }
+  function animateSlideEffects(slide) {
+    slide.querySelectorAll('.bar-chart:not(.bar-init)').forEach(chart => {
+      chart.classList.add('bar-init');
+      chart.querySelectorAll('.bar').forEach((bar, i) => {
+        const h = bar.dataset.height || 50;
+        bar.style.height = '0%'; bar.style.transition = `height 0.55s ease ${i * 0.08}s`; bar.offsetHeight; bar.style.height = h + '%';
+      });
+    });
+  }
+  document.addEventListener('mousemove', (e) => {
+    const spotlight = document.querySelector('.mouse-spotlight');
+    if (spotlight) { spotlight.style.background = `radial-gradient(600px circle at ${e.clientX}px ${e.clientY}px, rgba(194,65,12,0.06), transparent 40%)`; }
+  });
+  (function() {
+    let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2; const cx = window.innerWidth / 2, cy = window.innerHeight / 2;
+    document.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; });
+    (function tick() {
+      const ox = (mouseX - cx) / cx, oy = (mouseY - cy) / cy;
+      document.querySelectorAll('.deco-shape').forEach(shape => {
+        const speed = parseFloat(shape.dataset.speed) || 0.03;
+        shape.style.transform = `translate(${ox * speed * 100}px, ${oy * speed * 100}px)`;
+      });
+      requestAnimationFrame(tick);
+    })();
+  })();
+  window.initParticles = function(canvas, options) {
+    if (!canvas) return; const ctx = canvas.getContext('2d'); canvas.width = canvas.offsetWidth; canvas.height = canvas.offsetHeight;
+    const interactive = options.interactive !== false; const count = options.count || (interactive ? 50 : 18); let mx = -1000, my = -1000;
+    const particles = Array.from({ length: count }, () => ({ x: Math.random()*canvas.width, y: Math.random()*canvas.height, vx:(Math.random()-0.5)*0.3, vy:(Math.random()-0.5)*0.3, size:Math.random()*2.4+.8, alpha:Math.random()*0.35+.08 }));
+    if (interactive) {
+      canvas.addEventListener('mousemove', (e) => { const rect = canvas.getBoundingClientRect(); mx = e.clientX - rect.left; my = e.clientY - rect.top; });
+      canvas.addEventListener('mouseleave', () => { mx = -1000; my = -1000; });
+    }
+    (function animate() {
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      particles.forEach(p => {
+        if (interactive) { const dx = p.x - mx, dy = p.y - my, dist = Math.sqrt(dx*dx + dy*dy) || 1; if (dist < 120) { const force = (120 - dist) / 120 * 2; p.vx += (dx / dist) * force * 0.08; p.vy += (dy / dist) * force * 0.08; } }
+        p.vx *= 0.98; p.vy *= 0.98; p.x += p.vx; p.y += p.vy; if (p.x < 0) p.x = canvas.width; if (p.x > canvas.width) p.x = 0; if (p.y < 0) p.y = canvas.height; if (p.y > canvas.height) p.y = 0;
+        ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctx.fillStyle = `rgba(194,65,12,${p.alpha})`; ctx.fill();
+      });
+      requestAnimationFrame(animate);
+    })();
+  };
+  document.querySelectorAll('.particle-canvas').forEach(c => window.initParticles(c, { interactive: true, count: 50 }));
+  document.querySelectorAll('.particle-canvas-ambient').forEach(c => window.initParticles(c, { interactive: false, count: 18 }));
+  try { animateSlide(document.querySelector('.slide.active')); } catch(e) {}
+</script>
+</body>
+</html>
